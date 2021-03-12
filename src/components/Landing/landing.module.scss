@@ -1,1 +1,6 @@
-@import '../../shared/named_variables.module.scss';
+@import "../../shared/named_variables.module.scss";
+
+.btnGroup {
+  display: flex;
+  flex-direction: column;
+}

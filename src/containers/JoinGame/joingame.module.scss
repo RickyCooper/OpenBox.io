@@ -1,0 +1,27 @@
+@import "../../shared/named_variables.module.scss";
+
+h1 {
+  font-family: $h1-fontfamily;
+  font-weight: normal;
+  color: $background-color;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+
+  * {
+    margin: 5px;
+  }
+
+  label {
+    font-family: $btn-fontfamily;
+    font-size: 0.8rem;
+  }
+
+  input {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+}

@@ -1,11 +1,66 @@
-$background-color: #47BDFF;
-$secondary-background-color: #FDFDFD;
+$background-color: #47bdff;
+$secondary-background-color: #fdfdfd;
 
 $text-color: #252525;
-$secondary-text-color: #FDFDFD;
+$secondary-text-color: #fdfdfd;
 
-$prompt-card-color: #1E1E1E;
-$card-color: #F1F1F1;
+$prompt-card-color: #1e1e1e;
+$card-color: #f1f1f1;
 
+$btn-fontfamily: "Varela";
+$h1-fontfamily: "Share Tech";
 
-$btn-fontfamily: Varela;
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    @media (max-width: 37.5em) {
+      // 600px
+      @content;
+    }
+  }
+  @if $breakpoint == tab-portrait {
+    // 900px
+    @media (min-width: 46.25em) {
+      @content;
+    }
+  }
+  @if $breakpoint == tab-landscape {
+    // 1200px
+    @media (min-width: 75em) {
+      @content;
+    }
+  }
+  @if $breakpoint == desktop {
+    // 1800px
+    @media (min-width: 112.5em) {
+      @content;
+    }
+  }
+  @if $breakpoint == lrg-desktop {
+    // 1800px
+    @media (min-width: 212.5em) {
+      @content;
+    }
+  }
+}
+
+// Sizing Overrides
+
+html {
+  font-size: 120%;
+
+  @include respond(phone) {
+    font-size: 100%;
+  }
+
+  @include respond(tab-portrait) {
+    font-size: 120%;
+  }
+
+  @include respond(tab-landscape) {
+    font-size: 140%;
+  }
+
+  @include respond(desktop) {
+    font-size: 140%;
+  }
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './backdrop.module.css'
+import styles from './backdrop.module.scss'
 import Aux from '../../../hoc/Auxiliary/Auxiliary'
 import OpenBoxIcon from '../../../assets/svgs/svgIconLogo/svgIconLogo'
 import OpenBoxText from '../../../assets/svgs/svgTextLogo/svgTextLogo'
