@@ -1,0 +1,31 @@
+@import '../../../shared/named_variables.module.scss';
+
+
+.RoomCode {
+
+    width: min-content;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+    h1 {
+        color: black;
+        font-family: 'Varela';
+        font-size: 2.5vh;
+        font-weight: normal;
+        margin: 5px;
+    }
+
+    p {
+        background-color: white;
+        font-family: $RoomCode-fontfamily;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 4vh;
+        margin: 5px;
+        padding: 2% 40px;
+        color: black;
+        border-radius: 10px;
+    }
+}
+

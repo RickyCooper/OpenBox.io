@@ -6,7 +6,7 @@ import styles from './button.module.scss';
 function Button(props) {
 
     return (
-        <button class={styles.DefualtStyle}><p>{props.child}</p></button>
+        <button className={styles.DefualtStyle} onClick={props.onClickEvent}><p>{props.child}</p></button>
     );
 }
 

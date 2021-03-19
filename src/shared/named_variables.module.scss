@@ -7,6 +7,7 @@ $secondary-text-color: #fdfdfd;
 $prompt-card-color: #1e1e1e;
 $card-color: #f1f1f1;
 
+$RoomCode-fontfamily:'Shrikhand'; 
 $btn-fontfamily: "Varela";
 $h1-fontfamily: "Share Tech";
 
@@ -49,7 +50,7 @@ html {
   font-size: 120%;
 
   @include respond(phone) {
-    font-size: 100%;
+    font-size: 120%;
   }
 
   @include respond(tab-portrait) {
@@ -57,10 +58,10 @@ html {
   }
 
   @include respond(tab-landscape) {
-    font-size: 140%;
+    font-size: 120%;
   }
 
   @include respond(desktop) {
-    font-size: 140%;
+    font-size: 120%;
   }
 }

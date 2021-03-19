@@ -1,0 +1,30 @@
+@import "../../shared/named_variables.module.scss";
+
+.Lobby {
+    width: 80%;
+    margin: 10px auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content:  space-around;
+    align-items: center;
+
+    @include respond(tab-portrait) {
+        width: 50%;
+    }
+
+    @include respond(tab-landscape) {
+        margin: 0px 2%;
+        width: 20%;
+        justify-content:  space-evenly;
+    }
+    @include respond(lrg-desktop) {
+        width: 15%;
+
+    }
+}
+
+
+
+

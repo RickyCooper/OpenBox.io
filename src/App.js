@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Landing from './components/Landing/Landing';
-import JoinGame from './containers/JoinGame/JoinGame';
+import Join from './containers/Join/Join';
+import Lobby from './containers/Lobby/Lobby';
 import styles from './app.module.scss';
 import Backdrop from './components/UI/Backdrop/Backdrop';
 import Aux from './hoc/Auxiliary/Auxiliary';
@@ -15,7 +16,8 @@ import './app.module.scss';
         <Aux>
           <div className={styles.App}>
             <Switch>
-              <Route exact path="/join" component={JoinGame}/>
+              <Route exact path="/join" component={Join}/>
+              <Route exact path="/lobby" component={Lobby}/>
               <Route path="/" component={Landing}/>
             </Switch>
           </div>

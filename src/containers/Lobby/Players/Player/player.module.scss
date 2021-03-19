@@ -1,0 +1,28 @@
+@import "../../../../shared/named_variables.module.scss";
+
+.Player {
+    text-align: center;
+    margin: 1.5%;
+    font-size: 3vh;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 4%;
+    margin: 9% 0px;
+    box-sizing: border-box;
+    background-color: white;
+    color: black;
+    font-family: 'Share Tech', sans-serif;
+    font-style: normal;
+
+    @include respond(tab-landscape){
+        font-size: 3vh;
+        padding: 7%;
+    }
+}
+
+.Join {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.508);
+    border: dashed 0.4vh rgba(255, 255, 255, 0.508);
+}
+
