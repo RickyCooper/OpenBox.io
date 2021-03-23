@@ -10,3 +10,18 @@
         height: 50vh;
     }
 }
+
+
+.Modal {
+
+    display: none;
+
+    @include respond(phone) {
+        display: block;
+        height: 25vh;
+        path {
+        fill: $background-color;
+        }
+    }
+
+}

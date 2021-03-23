@@ -1,0 +1,11 @@
+@import '../../../shared/named_variables.module.scss';
+
+label {
+    font-family: $btn-fontfamily;
+    font-size: 0.8rem;
+  }
+
+  input {
+    padding: 10px;
+    margin-bottom: 10px;
+  }

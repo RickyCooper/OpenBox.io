@@ -1,13 +1,11 @@
 import React from 'react';
-import styles from './button.module.scss';
-
-// child, path, style 
+import styles from './Button.module.scss';
 
 function Button(props) {
-
     return (
-        <button className={styles.DefualtStyle} onClick={props.onClickEvent}><p>{props.child}</p></button>
+        <button onClick={props.clicked} className={styles[props.styleClass]}>
+            <p>{props.children}</p>
+        </button>
     );
 }
-
-export default Button
+export default Button;
