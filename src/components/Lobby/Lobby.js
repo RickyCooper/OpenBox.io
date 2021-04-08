@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import RoomCode from '../Lobby/RoomCode/RoomCode';
-import Players from './Players/Players';
-import styles from './lobby.module.scss';
 
+import Players from './Players/Players';
+import RoomCode from '../Lobby/RoomCode/RoomCode';
+import styles from './lobby.module.scss';
 
 class Lobby extends Component {
     render() {

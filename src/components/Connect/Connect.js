@@ -1,93 +1,143 @@
 import React, { useCallback, useState } from 'react';
 
-import Aux from '../../hoc/Auxiliary/Auxiliary';
 import Button from '../UI/Button/Button';
 import Input from '../UI/Input/Input';
+import Validate from '../../shared/Validate/Validate';
 import axios from '../../shared/axios';
 import styles from './connect.module.scss';
 
 const Connect = (props) => {
-    const [playerName, setPlayerName] = useState('');
-    const [roomCode, setRoomCode] = useState('');
-    const [formIsValid, setFormIsValid] = useState(null);
+    // [ State - player ]
+    const [player, setPlayer] = useState({
+        value: ``,
+        rules: {
+            // [ Validation rules ]
+            requried: true,
+            minLength: 3,
+            maxLength: 12,
+        },
+    });
 
-    const formValidation = useCallback((formIsValid) => {});
+    // [ State - lobbyId  ]
+    const [lobbyId, setLobbyId] = useState({
+        value: ``,
+        rules: {
+            // [ Validation rules ]
+            requried: true,
+            minLength: 4,
+            maxLength: 4,
+        },
+    });
 
+    // [ onChangeHandler ]
+    const onChangeHandler = (input, setState) => {
+        setState((prevState) => ({
+            value: input,
+            rules: {
+                ...prevState.rules,
+            },
+        }));
+    };
+
+    /*
+
+    const ConnectPlayer = useCallback(() => {
+          axios({
+                method: 'POST',
+                url: '/lobby',
+                data: {
+                    player: player,
+                },
+            })
+                .then((response) => {
+                    setPlayer.value(response.data.player);
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+    })
+
+    */
+
+    // [ Create Lobby ]
     const createLobby = useCallback(() => {
-        if (formValidation) {
+        const [valid, errorMessage] = Validate(player.rules, player.value);
+        if (valid) {
             axios({
-                method: 'POST',
-                url: '/lobby',
+                method: `POST`,
+                url: `/lobby`,
                 data: {
-                    playername: playerName,
+                    player: player,
                 },
             })
                 .then((response) => {
-                    setPlayerName(response.data.player);
+                    setPlayer.value(response.data.player);
                     console.log(response.data);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
+        } else {
+            console.log(errorMessage);
         }
-    }, [playerName]);
+    }, [player]);
 
+    // [ Join Lobby ]
     const joinLobby = useCallback(() => {
-        if (formValidation) {
-            axios({
-                method: 'POST',
-                url: '/lobby',
-                data: {
-                    playername: playerName,
-                    roomcode: roomCode,
-                },
+        axios({
+            method: `POST`,
+            url: `/lobby`,
+            data: {
+                player: player,
+                lobbyId: lobbyId,
+            },
+        })
+            .then((response) => {
+                setPlayer(response.data.player);
+                console.log(response.data);
             })
-                .then((response) => {
-                    setPlayerName(response.data.player);
-                    console.log(response.data);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-    }, [playerName, roomCode]);
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [player, lobbyId]);
 
-    const nicknameInput = (
+    // [ Nickname ]
+    const nickname = (
         <Input
             type="text"
             label="Nickname"
-            value={playerName}
-            state={setPlayerName}
+            value={player.value}
+            setStateTarget={setPlayer}
+            changed={onChangeHandler}
         ></Input>
     );
 
-    let userInputs = nicknameInput;
-
-    if (props.joining) {
-        userInputs = (
-            <Aux>
-                <Input
-                    type="text"
-                    label="Room Code"
-                    value={roomCode}
-                    state={setRoomCode}
-                ></Input>
-                {nicknameInput}
-            </Aux>
-        );
-    }
+    // [ Lobby Code ]
+    const lobbyCode = (
+        <Input
+            type="text"
+            label="Room Code"
+            value={lobbyId.value}
+            setStateTarget={setLobbyId}
+            changed={onChangeHandler}
+        ></Input>
+    );
 
     return (
         <div className={styles.Join}>
-            <form>{userInputs}</form>
+            <form>
+                {nickname}
+                {props.joining ? lobbyCode : null}
+            </form>
             <Button
-                styleClass={'Default'}
-                clicked={props.joining ? joinLobby() : createLobby}
+                styleClass={`Default`}
+                clicked={props.joining ? joinLobby : createLobby}
             >
                 {props.buttonLabel.toUpperCase()}
             </Button>
-            <Button styleClass={'Back'} clicked={props.back}>
-                {'BACK'}
+            <Button styleClass={`Back`} clicked={props.back}>
+                {`BACK`}
             </Button>
         </div>
     );

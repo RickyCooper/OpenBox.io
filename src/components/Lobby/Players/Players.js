@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
-import styles from './players.module.scss';
-import Player from './Player/Player';
 
-const Players = (props) => {
+import Player from './Player/Player';
+import styles from './players.module.scss';
+
+const Players = () => {
     const [playerLimit, setPlayerLimit] = useState(8);
     const [playersInLobby, setPlayersInLobby] = useState([]);
+
+    setPlayerLimit(5);
 
     if (playersInLobby.length < playerLimit) {
         let emptyPlayer = [...playersInLobby];
 
         while (emptyPlayer.length <= playerLimit) {
-            emptyPlayer.push({ name: 'empty', _id: Math.random().toString() });
+            emptyPlayer.push({ name: `empty`, _id: Math.random().toString() });
         }
 
         setPlayersInLobby([...emptyPlayer]);
     }
-    let showPlayers = playersInLobby.map((player, index) => {
+    let showPlayers = playersInLobby.map((player) => {
         return player.name !== `empty` ? (
             <Player name={player.name} key={player._id} />
         ) : (

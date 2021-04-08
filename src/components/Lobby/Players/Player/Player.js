@@ -9,7 +9,7 @@ const Player = (props) => {
     }
 
     console.log(props.name);
-    return <p className={classArray.join(' ')}>{props.name}</p>;
+    return <p className={classArray.join(` `)}>{props.name}</p>;
 };
 
 export default Player;

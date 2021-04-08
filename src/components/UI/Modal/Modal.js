@@ -12,7 +12,7 @@ const Modal = (props) => {
     }
 
     return (
-        <div className={[...styleArray].join(' ')}>
+        <div className={[...styleArray].join(` `)}>
             {props.children}
             <OpenBoxIcon modal />
         </div>

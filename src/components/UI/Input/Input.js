@@ -1,9 +1,8 @@
 import Aux from '../../../hoc/Auxiliary/Auxiliary';
 import React from 'react';
-import styles from './input.module.scss';
 
 const Input = (props) => {
-    // [ props ] - label, value, type, onChange
+    // [ props ] - state
 
     return (
         <Aux>
@@ -12,7 +11,7 @@ const Input = (props) => {
                 type={props.type}
                 value={props.value}
                 onChange={(event) => {
-                    props.state(event.target.value);
+                    props.changed(event.target.value, props.setStateTarget);
                 }}
             ></input>
         </Aux>

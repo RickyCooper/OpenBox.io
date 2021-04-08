@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './svgIconLogo.module.scss';
 
+/* eslint-disable max-len */
+
 const svgIconLogo = (props) => {
     let styleArray = [styles.OpenBoxIcon];
 
