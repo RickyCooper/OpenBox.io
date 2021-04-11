@@ -7,6 +7,7 @@ import axios from '../../shared/axios';
 import styles from './connect.module.scss';
 
 const Connect = (props) => {
+    
     // [ State - player ]
     const [player, setPlayer] = useState({
         value: ``,
@@ -68,14 +69,13 @@ const Connect = (props) => {
                 method: `POST`,
                 url: `/lobby`,
                 data: {
-                    player: player,
+                    playerName: player,
                 },
             })
                 .then((response) => {
                     setPlayer.value(response.data.player);
                     console.log(response.data);
-                })
-                .catch((error) => {
+                }).catch((error) => {
                     console.log(error);
                 });
         } else {
@@ -89,7 +89,7 @@ const Connect = (props) => {
             method: `POST`,
             url: `/lobby`,
             data: {
-                player: player,
+                playerName: player,
                 lobbyId: lobbyId,
             },
         })

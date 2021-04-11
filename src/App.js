@@ -13,8 +13,8 @@ class App extends Component {
             <Aux>
                 <div className={styles.App}>
                     <Switch>
-                        <Route exact path="/lobby" component={Lobby} />
-                        <Route path="/" component={Landing} />
+                        <Route path="/lobby/:lobbyId" component={Lobby} />
+                        <Route exact path="/" component={Landing} />
                     </Switch>
                 </div>
                 <Backdrop />

@@ -30,11 +30,6 @@ const Backdrop = () => {
         );
     }
 
-    console.log(
-        `%c ${lobby ? true : false}`,
-        `color: blue; font-weight: bold;`,
-    );
-
     return <Aux>{backdrop}</Aux>;
 };
 export default Backdrop;

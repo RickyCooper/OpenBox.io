@@ -4,10 +4,8 @@ import Player from './Player/Player';
 import styles from './players.module.scss';
 
 const Players = () => {
-    const [playerLimit, setPlayerLimit] = useState(8);
+    const [playerLimit] = useState(8);
     const [playersInLobby, setPlayersInLobby] = useState([]);
-
-    setPlayerLimit(5);
 
     if (playersInLobby.length < playerLimit) {
         let emptyPlayer = [...playersInLobby];
