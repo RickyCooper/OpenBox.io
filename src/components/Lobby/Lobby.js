@@ -1,33 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Players from './Players/Players';
 import RoomCode from '../Lobby/RoomCode/RoomCode';
-import axios from '../../shared/axios';
+import { fetchLobbyPlayers } from '../../actions/lobbyActions';
 import styles from './lobby.module.scss';
 import { useParams } from 'react-router-dom';
 
 const Lobby = () => {
-    const { lobbyId } = useParams();
+    let { id } = useParams();
 
-    useState(() => {
-        axios({
-            method: `POST`,
-            url: `/lobby`,
-            data: {
-                lobbyId: lobbyId,
-            },
-        })
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        /*
+        setInterval(() => {
+            dispatch(fetchLobbyPlayers(id));
+        }, 5000);
+        */
+        dispatch(fetchLobbyPlayers(id));
     }, []);
+
+    let playerList = <p>Loading</p>;
+
+    const playersInLobby = useSelector((state) => state.playersInLobby);
+    const { success, players } = playersInLobby;
+
+    if (success) {
+        playerList = <Players players={players} />;
+    }
 
     return (
         <div className={styles.Lobby}>
-            <Players />
+            {playerList}
             <RoomCode />
         </div>
     );

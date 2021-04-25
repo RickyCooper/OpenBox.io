@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
+import Backdrop from '../UI/Backdrop/Backdrop';
 import Button from '../UI/Button/Button';
 import Connect from '../Connect/Connect';
 import Modal from '../UI/Modal/Modal';
@@ -49,7 +50,12 @@ const Landing = () => {
         }
     }, [setShowModal, showModal]);
 
-    return <Modal>{switchModal()}</Modal>;
+    return (
+        <>
+            <Modal>{switchModal()}</Modal>
+            <Backdrop />
+        </>
+    );
 };
 
 export default Landing;

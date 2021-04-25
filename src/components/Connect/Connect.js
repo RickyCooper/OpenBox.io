@@ -1,13 +1,18 @@
-import React, { useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { createLobby, joinLobby } from '../../actions/lobbyActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../UI/Button/Button';
 import Input from '../UI/Input/Input';
-import Validate from '../../shared/Validate/Validate';
-import axios from '../../shared/axios';
 import styles from './connect.module.scss';
+import { useHistory } from 'react-router-dom';
 
 const Connect = (props) => {
-    // [ State - player ]
+    let history = useHistory();
+
+    const connectPlayer = useSelector((state) => state.playerConnection);
+    const { success } = connectPlayer;
+
     const [player, setPlayer] = useState({
         value: ``,
         rules: {
@@ -18,7 +23,6 @@ const Connect = (props) => {
         },
     });
 
-    // [ State - lobbyId  ]
     const [lobbyId, setLobbyId] = useState({
         value: ``,
         rules: {
@@ -29,7 +33,8 @@ const Connect = (props) => {
         },
     });
 
-    // [ onChangeHandler ]
+    const dispatch = useDispatch();
+
     const onChangeHandler = (input, setState) => {
         setState((prevState) => ({
             value: input,
@@ -39,69 +44,19 @@ const Connect = (props) => {
         }));
     };
 
-    /*
+    const createOnSubmit = async () => {
+        dispatch(createLobby(player.value));
+    };
 
-    const ConnectPlayer = useCallback(() => {
-          axios({
-                method: 'POST',
-                url: '/lobby',
-                data: {
-                    player: player,
-                },
-            })
-                .then((response) => {
-                    setPlayer.value(response.data.player);
-                    console.log(response.data);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-    })
+    const joinOnSubmit = () => {
+        dispatch(joinLobby(player.value, lobbyId.value));
+    };
 
-    */
-
-    // [ Create Lobby ]
-    const createLobby = useCallback(() => {
-        const [valid, errorMessage] = Validate(player.rules, player.value);
-        if (valid) {
-            axios({
-                method: `POST`,
-                url: `/lobby`,
-                data: {
-                    playerName: player.value,
-                },
-            })
-                .then((response) => {
-                    onChangeHandler(response.data.player, setPlayer);
-                    onChangeHandler(response.data.lobby, setLobbyId);
-                    console.log(lobbyId);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        } else {
-            console.log(errorMessage);
+    useEffect(() => {
+        if (success) {
+            history.push(`/lobby/${JSON.parse(localStorage.getItem(`lobby`))}`);
         }
-    }, [player]);
-
-    // [ Join Lobby ]
-    const joinLobby = useCallback(() => {
-        axios({
-            method: `POST`,
-            url: `/lobby`,
-            data: {
-                playerName: player.value,
-                lobbyId: lobbyId,
-            },
-        })
-            .then((response) => {
-                onChangeHandler(response.data.player, setPlayer);
-                console.log(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, [player, lobbyId]);
+    }, [success]);
 
     // [ Nickname ]
     const nickname = (
@@ -133,7 +88,7 @@ const Connect = (props) => {
             </form>
             <Button
                 styleClass={`Default`}
-                clicked={props.joining ? joinLobby : createLobby}
+                clicked={props.joining ? joinOnSubmit : createOnSubmit}
             >
                 {props.buttonLabel.toUpperCase()}
             </Button>
