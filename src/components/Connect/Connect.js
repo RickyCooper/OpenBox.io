@@ -11,7 +11,7 @@ const Connect = (props) => {
     let history = useHistory();
 
     const connectPlayer = useSelector((state) => state.playerConnection);
-    const { success } = connectPlayer;
+    const { success, loading, lobby } = connectPlayer;
 
     const [player, setPlayer] = useState({
         value: ``,
@@ -54,7 +54,7 @@ const Connect = (props) => {
 
     useEffect(() => {
         if (success) {
-            history.push(`/lobby/${JSON.parse(localStorage.getItem(`lobby`))}`);
+            history.push(`/lobby/${lobby._id}`);
         }
     }, [success]);
 
@@ -82,19 +82,25 @@ const Connect = (props) => {
 
     return (
         <div className={styles.Join}>
-            <form>
-                {nickname}
-                {props.joining ? lobbyCode : null}
-            </form>
-            <Button
-                styleClass={`Default`}
-                clicked={props.joining ? joinOnSubmit : createOnSubmit}
-            >
-                {props.buttonLabel.toUpperCase()}
-            </Button>
-            <Button styleClass={`Back`} clicked={props.back}>
-                {`BACK`}
-            </Button>
+            {loading ? (
+                <p>Loading</p>
+            ) : (
+                <>
+                    <form>
+                        {nickname}
+                        {props.joining ? lobbyCode : null}
+                    </form>
+                    <Button
+                        styleClass={`Default`}
+                        clicked={props.joining ? joinOnSubmit : createOnSubmit}
+                    >
+                        {props.buttonLabel.toUpperCase()}
+                    </Button>
+                    <Button styleClass={`Back`} clicked={props.back}>
+                        {`BACK`}
+                    </Button>
+                </>
+            )}
         </div>
     );
 };

@@ -8,6 +8,7 @@ import {
     JOIN_LOBBY_FAIL,
     JOIN_LOBBY_REQUEST,
     JOIN_LOBBY_SUCCESS,
+    WEBSOCKET_LOBBY_UPDATE,
 } from '../constants/lobbyConstants';
 
 export const connectToLobbyReducer = (state = {}, action) => {
@@ -53,6 +54,14 @@ export const fetchLobbyPlayersReducer = (state = {}, action) => {
         };
     case FETCH_LOBBY_PLAYERS_FAIL:
         return { loading: false, error: action.payload };
+
+    case WEBSOCKET_LOBBY_UPDATE:
+        return {
+            loading: false,
+            success: true,
+            players: action.payload,
+        };
+
     default:
         return state;
     }

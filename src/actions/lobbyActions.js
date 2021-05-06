@@ -8,6 +8,10 @@ import {
     JOIN_LOBBY_FAIL,
     JOIN_LOBBY_REQUEST,
     JOIN_LOBBY_SUCCESS,
+    REMOVE_PLAYER_FAIL,
+    REMOVE_PLAYER_REQUEST,
+    REMOVE_PLAYER_SUCCESS,
+    WEBSOCKET_LOBBY_UPDATE,
 } from '../constants/lobbyConstants';
 
 import axios from '../shared/axios';
@@ -25,16 +29,18 @@ export const createLobby = (playerName) => async (dispatch) => {
         };
         const { data } = await axios.post(`/lobby`, { playerName }, config);
 
+        localStorage.setItem(
+            `headers`,
+            JSON.stringify({
+                playerId: data.player._id,
+                lobbyId: data.lobby._id,
+                secret: data.player.secret,
+            }),
+        );
+
         dispatch({
             type: CREATE_LOBBY_SUCCESS,
             payload: data,
-        });
-
-        localStorage.setItem(`lobby`, JSON.stringify(data.lobby._id));
-        localStorage.setItem(`player`, {
-            _id: JSON.stringify(data.player._id),
-            name: JSON.stringify(data.player.name),
-            secret: JSON.stringify(data.player.secret),
         });
     } catch (error) {
         dispatch({
@@ -64,6 +70,15 @@ export const joinLobby = (playerName, lobby_id) => async (dispatch) => {
             config,
         );
 
+        localStorage.setItem(
+            `headers`,
+            JSON.stringify({
+                playerId: data.player._id,
+                lobbyId: data.lobby._id,
+                secret: data.player.secret,
+            }),
+        );
+
         dispatch({
             type: JOIN_LOBBY_SUCCESS,
             payload: data,
@@ -79,7 +94,7 @@ export const joinLobby = (playerName, lobby_id) => async (dispatch) => {
     }
 };
 
-export const fetchLobbyPlayers = (lobby_id) => async (dispatch) => {
+export const fetchLobbyPlayers = (id) => async (dispatch) => {
     try {
         dispatch({
             type: FETCH_LOBBY_PLAYERS_REQUEST,
@@ -87,7 +102,7 @@ export const fetchLobbyPlayers = (lobby_id) => async (dispatch) => {
 
         const config = {
             headers: {
-                lobbyid: lobby_id,
+                lobbyid: id,
             },
         };
         const { data } = await axios.get(`/lobby/players`, config);
@@ -105,4 +120,41 @@ export const fetchLobbyPlayers = (lobby_id) => async (dispatch) => {
                     : error.message,
         });
     }
+};
+
+export const kickPlayer = (playerId) => async (dispatch) => {
+    const headers = JSON.parse(localStorage.getItem(`headers`));
+
+    try {
+        dispatch({
+            type: REMOVE_PLAYER_REQUEST,
+        });
+        const { data } = await axios.delete(`/lobby/players`, {
+            headers: headers,
+            data: { playerId },
+        });
+
+        dispatch({
+            type: REMOVE_PLAYER_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: REMOVE_PLAYER_FAIL,
+            payload:
+                error.response && error.response.data.message ?
+                    error.response.data.message
+                    : error.message,
+        });
+    }
+};
+
+export const webSocketUpdatePlayers = (data) => async (dispatch) => {
+    data = JSON.parse(data);
+    console.log(data.lobby.players);
+
+    dispatch({
+        type: WEBSOCKET_LOBBY_UPDATE,
+        payload: data.lobby.players,
+    });
 };
