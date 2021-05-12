@@ -16,6 +16,8 @@ import {
 
 import axios from '../shared/axios';
 
+// CREATE LOBBY ACTION
+
 export const createLobby = (playerName) => async (dispatch) => {
     try {
         dispatch({
@@ -53,6 +55,8 @@ export const createLobby = (playerName) => async (dispatch) => {
     }
 };
 
+// JOIN LOBBY ACTION
+
 export const joinLobby = (playerName, lobby_id) => async (dispatch) => {
     try {
         dispatch({
@@ -64,6 +68,7 @@ export const joinLobby = (playerName, lobby_id) => async (dispatch) => {
                 lobbyid: lobby_id,
             },
         };
+
         const { data } = await axios.put(
             `/lobby/players`,
             { playerName },
@@ -94,6 +99,8 @@ export const joinLobby = (playerName, lobby_id) => async (dispatch) => {
     }
 };
 
+// FETCH LOBBY ACTION
+
 export const fetchLobbyPlayers = (id) => async (dispatch) => {
     try {
         dispatch({
@@ -122,7 +129,9 @@ export const fetchLobbyPlayers = (id) => async (dispatch) => {
     }
 };
 
-export const kickPlayer = (playerId) => async (dispatch) => {
+// REM0VE PLAYER ACTION
+
+export const removePlayer = (playerId) => async (dispatch) => {
     const headers = JSON.parse(localStorage.getItem(`headers`));
 
     try {
@@ -148,6 +157,8 @@ export const kickPlayer = (playerId) => async (dispatch) => {
         });
     }
 };
+
+// UPDATE LOBBY ACTION
 
 export const webSocketUpdatePlayers = (data) => async (dispatch) => {
     data = JSON.parse(data);

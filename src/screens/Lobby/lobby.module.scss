@@ -1,7 +1,7 @@
-@import "../../shared/named_variables.module.scss";
+@import "shared/SCSS/_breakpoints.module.scss";
 
 .Lobby {
-    width: 80%;
+    width: 100%;
     margin: 10px auto;
     height: 100vh;
     display: flex;

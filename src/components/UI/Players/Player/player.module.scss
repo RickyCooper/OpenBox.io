@@ -1,4 +1,7 @@
-@import "../../../../shared/named_variables.module.scss";
+@import "shared/SCSS/_color.module.scss";
+@import "shared/SCSS/_breakpoints.module.scss";
+@import "shared/SCSS/_font.module.scss";
+
 
 .Player {
     text-align: center;

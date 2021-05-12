@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { createLobby, joinLobby } from '../../actions/lobbyActions';
+import { createLobby, joinLobby } from 'actions/lobbyActions';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Button from '../UI/Button/Button';
-import Input from '../UI/Input/Input';
+import Button from 'components/UI/Button/Button';
+import Input from 'components/UI/Input/Input';
 import styles from './connect.module.scss';
 import { useHistory } from 'react-router-dom';
 
-const Connect = (props) => {
-    let history = useHistory();
-
-    const connectPlayer = useSelector((state) => state.playerConnection);
-    const { success, loading, lobby } = connectPlayer;
-
+const Connect = ({ back, connectionType, lobbyIdentifier = `` }) => {
+    // [ Two user inputs, players name and lobby id  ]
     const [player, setPlayer] = useState({
         value: ``,
         rules: {
@@ -24,7 +20,7 @@ const Connect = (props) => {
     });
 
     const [lobbyId, setLobbyId] = useState({
-        value: ``,
+        value: lobbyIdentifier,
         rules: {
             // [ Validation rules ]
             requried: true,
@@ -32,8 +28,6 @@ const Connect = (props) => {
             maxLength: 4,
         },
     });
-
-    const dispatch = useDispatch();
 
     const onChangeHandler = (input, setState) => {
         setState((prevState) => ({
@@ -44,13 +38,21 @@ const Connect = (props) => {
         }));
     };
 
+    const dispatch = useDispatch();
+
     const createOnSubmit = async () => {
         dispatch(createLobby(player.value));
     };
 
     const joinOnSubmit = () => {
+        console.log(lobbyId.value);
         dispatch(joinLobby(player.value, lobbyId.value));
     };
+
+    const connectPlayer = useSelector((state) => state.playerConnection);
+    const { success, loading, lobby } = connectPlayer;
+
+    let history = useHistory();
 
     useEffect(() => {
         if (success) {
@@ -70,15 +72,16 @@ const Connect = (props) => {
     );
 
     // [ Lobby Code ]
-    const lobbyCode = (
-        <Input
-            type="text"
-            label="Room Code"
-            value={lobbyId.value}
-            setStateTarget={setLobbyId}
-            changed={onChangeHandler}
-        ></Input>
-    );
+    const lobbyCode
+        = lobbyIdentifier || connectionType === `host` ? null : (
+            <Input
+                type="text"
+                label="Room Code"
+                value={lobbyId.value}
+                setStateTarget={setLobbyId}
+                changed={onChangeHandler}
+            ></Input>
+        );
 
     return (
         <div className={styles.Join}>
@@ -88,17 +91,23 @@ const Connect = (props) => {
                 <>
                     <form>
                         {nickname}
-                        {props.joining ? lobbyCode : null}
+                        {lobbyCode}
                     </form>
                     <Button
-                        styleClass={`Default`}
-                        clicked={props.joining ? joinOnSubmit : createOnSubmit}
+                        styling={`Default`}
+                        clicked={
+                            connectionType === `host` ?
+                                createOnSubmit
+                                : joinOnSubmit
+                        }
                     >
-                        {props.buttonLabel.toUpperCase()}
+                        {connectionType.toUpperCase()}
                     </Button>
-                    <Button styleClass={`Back`} clicked={props.back}>
-                        {`BACK`}
-                    </Button>
+                    {!back ? null : (
+                        <Button styleClass={`Back`} clicked={back}>
+                            {`BACK`}
+                        </Button>
+                    )}
                 </>
             )}
         </div>

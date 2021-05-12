@@ -1,4 +1,5 @@
-@import '../../../shared/named_variables.module.scss';
+@import "shared/SCSS/_color.module.scss";
+@import "shared/SCSS/_breakpoints.module.scss";
 
 .OpenBoxIcon {
     position: fixed;
@@ -13,15 +14,14 @@
 
 
 .Modal {
-
+    
     display: none;
 
     @include respond(phone) {
         display: block;
         height: 25vh;
         path {
-        fill: $background-color;
+        fill: $Third-FontColor;
         }
     }
-
 }

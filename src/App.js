@@ -1,8 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 
-import Aux from './hoc/Auxiliary/Auxiliary';
-import Landing from './components/Landing/Landing';
-import Lobby from './components/Lobby/Lobby';
+import Landing from './screens/Landing/Landing';
+import Lobby from './screens/Lobby/Lobby';
 import React from 'react';
 import styles from './app.module.scss';
 import { useSelector } from 'react-redux';
@@ -24,14 +23,10 @@ const App = () => {
         webSocket.addEventListener(`open`, () => {
             console.log(`we have made a connection`);
         });
-
-        webSocket.addEventListener(`message`, (e) => {
-            console.log(e.data);
-        });
     }
 
     return (
-        <Aux>
+        <>
             <div className={styles.App}>
                 <Switch>
                     <Route
@@ -46,7 +41,7 @@ const App = () => {
                     <Route exact path="/" component={Landing} />
                 </Switch>
             </div>
-        </Aux>
+        </>
     );
 };
 

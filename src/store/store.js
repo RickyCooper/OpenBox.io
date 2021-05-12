@@ -12,7 +12,10 @@ const reducer = combineReducers({
     playersInLobby: fetchLobbyPlayersReducer,
 });
 
-const initialState = { create: { lobby: {}, player: {} } };
+const initialState = {
+    playerConnection: { lobby: {}, player: {} },
+    playersInLobby: { players: {} },
+};
 
 const middleware = [thunk];
 

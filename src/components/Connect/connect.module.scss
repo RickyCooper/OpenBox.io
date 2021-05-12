@@ -1,4 +1,7 @@
-@import "../../shared/named_variables.module.scss";
+@import "shared/SCSS/_color.module.scss";
+@import "shared/SCSS/_font.module.scss";
+@import "shared/SCSS/_breakpoints.module.scss";
+
 .Join {
   width: 100vw;
   display: flex;
@@ -10,9 +13,9 @@
   }
 }
 h1 {
-  font-family: $h1-fontfamily;
+  font-family: $Third-FontType;
   font-weight: normal;
-  color: $background-color;
+  color: $First-BackgroundColor; 
 }
 
 form {

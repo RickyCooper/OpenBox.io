@@ -1,4 +1,6 @@
-@import "../../shared/named_variables.module.scss";
+@import "shared/SCSS/_breakpoints.module.scss";
+@import "shared/SCSS/_color.module.scss";
+@import "shared/SCSS/_font.module.scss";
 
 .btnGroup {
   display: flex;
@@ -15,7 +17,7 @@
   line-height: 0.05rem;
   font-size: 16px;
   opacity: 0.2;
-  font-family: $btn-fontfamily;
+  font-family: $Second-FontType;
   margin: 15% 0 15%; 
 
   span { 
@@ -25,7 +27,7 @@
 } 
 
 .Login {
-  color: $background-color;
-  font-family: $btn-fontfamily;
+  color: $First-BackgroundColor;
+  font-family: $Second-FontType;
   font-size: 0.8em;
 }

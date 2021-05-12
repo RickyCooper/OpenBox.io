@@ -9,11 +9,11 @@ import {
     JOIN_LOBBY_REQUEST,
     JOIN_LOBBY_SUCCESS,
     WEBSOCKET_LOBBY_UPDATE,
-} from '../constants/lobbyConstants';
+} from 'constants/lobbyConstants';
 
 export const connectToLobbyReducer = (state = {}, action) => {
     switch (action.type) {
-    // CREATE LOBBY
+
     case CREATE_LOBBY_REQUEST:
         return { loading: true };
     case CREATE_LOBBY_SUCCESS:
@@ -25,7 +25,6 @@ export const connectToLobbyReducer = (state = {}, action) => {
         };
     case CREATE_LOBBY_FAIL:
         return { loading: false, error: action.payload };
-        // JOIN LOBBY
     case JOIN_LOBBY_REQUEST:
         return { loading: true };
     case JOIN_LOBBY_SUCCESS:

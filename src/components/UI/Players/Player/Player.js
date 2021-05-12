@@ -7,8 +7,6 @@ const Player = (props) => {
     if (props.empty) {
         classArray.push(styles.Join);
     }
-
-    console.log(props.name);
     return <p className={classArray.join(` `)}>{props.name}</p>;
 };
 

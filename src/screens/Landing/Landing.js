@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 
-import Backdrop from '../UI/Backdrop/Backdrop';
-import Button from '../UI/Button/Button';
-import Connect from '../Connect/Connect';
-import Modal from '../UI/Modal/Modal';
+import Backdrop from 'components/UI/Backdrop/Backdrop';
+import Button from 'components/UI/Button/Button';
+import Connect from 'components/Connect/Connect';
+import Modal from 'components/UI/Modal/Modal';
 import styles from './landing.module.scss';
 
 const Landing = () => {
@@ -14,23 +14,22 @@ const Landing = () => {
         case `join`:
             return (
                 <Connect
-                    joining
+                    connectionType={`join`}
                     back={() => setShowModal(``)}
-                    buttonLabel={`join`}
                 />
             );
         case `host`:
             return (
                 <Connect
                     back={() => setShowModal(``)}
-                    buttonLabel={`host`}
+                    connectionType={`host`}
                 />
             );
         default:
             return (
                 <div className={styles.btnGroup}>
                     <Button
-                        styleClass={`Default`}
+                        styling={`Default`}
                         clicked={() => setShowModal(`host`)}
                     >
                             HOST
@@ -39,7 +38,7 @@ const Landing = () => {
                         <span>OR</span>
                     </p>
                     <Button
-                        styleClass={`Default`}
+                        styling={`Default`}
                         clicked={() => setShowModal(`join`)}
                     >
                             JOIN
