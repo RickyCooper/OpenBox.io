@@ -53,17 +53,9 @@ const Lobby = ({ webSocket }) => {
     const playersInLobby = useSelector((state) => state.playersInLobby);
     const { success, players } = playersInLobby;
 
-    const playerConnection = useSelector((state) => state.playerConnection);
-    const { connectSuccess } = playerConnection;
-
     useEffect(() => {
         dispatch(fetchLobbyPlayers(id));
     }, []);
-
-    useEffect(() => {
-        console.log(connectSuccess);
-        dispatch(fetchLobbyPlayers(id));
-    }, [connectSuccess]);
 
     if (success) {
         playerList = <Players kickEvent={kickPlayer} players={players} />;

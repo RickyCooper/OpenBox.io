@@ -25,6 +25,7 @@ export const connectToLobbyReducer = (state = {}, action) => {
         };
     case CREATE_LOBBY_FAIL:
         return { loading: false, error: action.payload };
+        
     case JOIN_LOBBY_REQUEST:
         return { loading: true };
     case JOIN_LOBBY_SUCCESS:
