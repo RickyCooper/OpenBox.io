@@ -15,13 +15,13 @@
     }
 
     @include respond(tab-landscape) {
-        margin: 0px 2%;
-        width: 20%;
+        margin: 0 2%;
+        width: 36%;
         justify-content:  space-evenly;
     }
+    
     @include respond(lrg-desktop) {
-        width: 15%;
-
+        width: 20%;
     }
 }
 

@@ -104,8 +104,8 @@ const Connect = ({ back, connectionType, lobbyIdentifier = `` }) => {
                         {connectionType.toUpperCase()}
                     </Button>
                     {!back ? null : (
-                        <Button styleClass={`Back`} clicked={back}>
-                            {`BACK`}
+                        <Button styling={`Back`} clicked={back}>
+                            {`back`}
                         </Button>
                     )}
                 </>

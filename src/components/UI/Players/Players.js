@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 
+import Join from './Join/Join';
 import Player from './Player/Player';
 import styles from './players.module.scss';
+
+/* eslint-disable max-len */
 
 const Players = ({ players }) => {
     const [playerLimit] = useState(6);
@@ -12,9 +15,9 @@ const Players = ({ players }) => {
 
     let showPlayers = players.map((player) => {
         return player.name !== `empty` ? (
-            <Player name={player.name} key={player._id} />
+            <Player player={player} key={player._id} />
         ) : (
-            <Player name={`JOIN`} key={player._id} empty />
+            <Join key={player._id} empty />
         );
     });
 

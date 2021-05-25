@@ -1,31 +1,90 @@
 @import "shared/SCSS/_color.module.scss";
 @import "shared/SCSS/_breakpoints.module.scss";
 @import "shared/SCSS/_font.module.scss";
+@import "shared/SCSS/_animation.mdoule.scss";
 
 
 .Player {
+
+    position: relative;
+    display: flex;
     text-align: center;
-    margin: 1.5%;
     font-size: 3vh;
-    box-sizing: border-box;
     width: 100%;
-    padding: 4%;
-    margin: 9% 0px;
-    box-sizing: border-box;
+    margin: 9% 0;
+    padding: 5%;
     background-color: white;
     color: black;
+    box-sizing: border-box;
+    border: dashed 0.4vh transparent;
     font-family: 'Share Tech', sans-serif;
-    font-style: normal;
 
-    @include respond(tab-landscape){
-        font-size: 3vh;
-        padding: 7%;
+    p {
+        margin: 5px;
+        transition: width .8s ease;
+        width: 100%;
+        text-align: center;
     }
 }
 
-.Join {
-    background-color: transparent;
-    color: rgba(255, 255, 255, 0.508);
-    border: dashed 0.4vh rgba(255, 255, 255, 0.508);
-}
 
+.Host {
+    
+    div {
+        position: absolute;
+        right: 0;
+        display: flex;
+        transition: all .8s ease;
+        align-self: center;
+
+    }
+
+    button {
+
+        transition: all .2s ease;
+        height: 60px;
+        width: 60px;
+        opacity: 0;
+        margin: 10px;
+        cursor: pointer;
+        border:none;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+            transition: height 0.2s ease;
+            height: 20px;
+
+        }
+
+        &:hover {
+            
+            svg {
+                height: 25px;
+            }
+        }
+    }
+
+    &:hover {
+
+        background-color: $Selected-Color;
+        animation: shake 2s;
+        animation-iteration-count: infinite;     
+        color: white;
+
+        p {
+            width: 0;
+        }
+
+        div {
+            right: 5%;
+        }
+
+        button {
+            opacity: 1;
+        }
+    }
+    
+}

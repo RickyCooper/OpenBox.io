@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import {
     fetchLobbyPlayers,
-    removePlayer,
     webSocketUpdatePlayers,
 } from 'actions/lobbyActions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -44,10 +43,6 @@ const Lobby = ({ webSocket }) => {
 
     const dispatch = useDispatch();
 
-    const kickPlayer = (e) => {
-        dispatch(removePlayer(e.target.value));
-    };
-
     let playerList = <p>Loading</p>;
 
     const playersInLobby = useSelector((state) => state.playersInLobby);
@@ -58,7 +53,7 @@ const Lobby = ({ webSocket }) => {
     }, []);
 
     if (success) {
-        playerList = <Players kickEvent={kickPlayer} players={players} />;
+        playerList = <Players players={players} />;
     }
 
     return (

@@ -7,11 +7,13 @@
     bottom: 0;
     height: 35vh;
 
-    @include respond(tab-landscape) {
+    @include respond(desktop) {
+        height: 40vh;
+    }
+    @include respond(lrg-desktop) {
         height: 50vh;
     }
 }
-
 
 .Modal {
     
@@ -25,3 +27,6 @@
         }
     }
 }
+
+
+
