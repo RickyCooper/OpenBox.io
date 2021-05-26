@@ -13,7 +13,6 @@ import {
 
 export const connectToLobbyReducer = (state = {}, action) => {
     switch (action.type) {
-
     case CREATE_LOBBY_REQUEST:
         return { loading: true };
     case CREATE_LOBBY_SUCCESS:
@@ -25,7 +24,7 @@ export const connectToLobbyReducer = (state = {}, action) => {
         };
     case CREATE_LOBBY_FAIL:
         return { loading: false, error: action.payload };
-        
+
     case JOIN_LOBBY_REQUEST:
         return { loading: true };
     case JOIN_LOBBY_SUCCESS:
@@ -50,7 +49,7 @@ export const fetchLobbyPlayersReducer = (state = {}, action) => {
         return {
             loading: false,
             success: true,
-            players: action.payload.players,
+            lobby: action.payload.lobby,
         };
     case FETCH_LOBBY_PLAYERS_FAIL:
         return { loading: false, error: action.payload };
@@ -59,7 +58,7 @@ export const fetchLobbyPlayersReducer = (state = {}, action) => {
         return {
             loading: false,
             success: true,
-            players: action.payload,
+            lobby: { ...state.lobby, players: action.payload },
         };
 
     default:

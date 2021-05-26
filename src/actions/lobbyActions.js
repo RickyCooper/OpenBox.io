@@ -112,7 +112,7 @@ export const fetchLobbyPlayers = (id) => async (dispatch) => {
                 lobbyid: id,
             },
         };
-        const { data } = await axios.get(`/lobby/players`, config);
+        const { data } = await axios.get(`/lobby`, config);
 
         dispatch({
             type: FETCH_LOBBY_PLAYERS_SUCCESS,

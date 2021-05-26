@@ -11,7 +11,7 @@ import styles from './player.module.scss';
 const Player = ({ player }) => {
     const dispatch = useDispatch();
 
-    const lobbyData = useSelector((state) => state.playerConnection.lobby);
+    const lobbyData = useSelector((state) => state.currentLobby.lobby);
     const { host } = lobbyData;
 
     const headers = JSON.parse(localStorage.getItem(`headers`));
@@ -22,7 +22,7 @@ const Player = ({ player }) => {
 
     let styleArray = [styles.Player];
 
-    if (host._id === headers.playerId) {
+    if (host._id === headers.playerId && host._id !== player._id) {
         styleArray.push(styles.Host);
         console.log(styleArray);
     }
@@ -30,7 +30,7 @@ const Player = ({ player }) => {
     return (
         <div className={[...styleArray].join(` `)}>
             <p>{player.name}</p>
-            {host._id != headers.playerId ? null : (
+            {host._id != headers.playerId || host._id === player._id ? null : (
                 <div>
                     <button style={{ backgroundColor: `white` }}>
                         <Crown />
@@ -43,6 +43,7 @@ const Player = ({ player }) => {
                     </button>
                 </div>
             )}
+            {host._id == player._id ? <Crown /> : null}
         </div>
     );
 };

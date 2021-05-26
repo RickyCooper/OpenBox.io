@@ -16,7 +16,6 @@ import { useParams } from 'react-router-dom';
 const Lobby = ({ webSocket }) => {
     if (webSocket) {
         webSocket.addEventListener(`message`, (e) => {
-            console.log(e.data);
             dispatch(webSocketUpdatePlayers(e.data));
         });
     }
@@ -45,15 +44,16 @@ const Lobby = ({ webSocket }) => {
 
     let playerList = <p>Loading</p>;
 
-    const playersInLobby = useSelector((state) => state.playersInLobby);
-    const { success, players } = playersInLobby;
+    const playersInLobby = useSelector((state) => state.currentLobby);
+    const { success, lobby } = playersInLobby;
 
     useEffect(() => {
         dispatch(fetchLobbyPlayers(id));
     }, []);
 
     if (success) {
-        playerList = <Players players={players} />;
+        console.log(lobby.players);
+        playerList = <Players players={lobby.players} />;
     }
 
     return (

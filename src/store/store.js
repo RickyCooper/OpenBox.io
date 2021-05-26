@@ -9,12 +9,12 @@ import thunk from 'redux-thunk';
 
 const reducer = combineReducers({
     playerConnection: connectToLobbyReducer,
-    playersInLobby: fetchLobbyPlayersReducer,
+    currentLobby: fetchLobbyPlayersReducer,
 });
 
 const initialState = {
     playerConnection: { lobby: {}, player: {} },
-    playersInLobby: { players: {} },
+    currentLobby: { lobby: {} },
 };
 
 const middleware = [thunk];
